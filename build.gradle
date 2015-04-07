@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+project.ext {
+    dropwizardVersion = '0.8.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+        'io.dropwizard:dropwizard-core:' + dropwizardVersion
+    )
+}
+
+task oneJar(type: OneJar) {
+    mainClass = 'com.example.ExampleApplication'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.4'
+}
+
+artifacts {
+    oneJar
+}
