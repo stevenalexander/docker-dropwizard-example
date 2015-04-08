@@ -38,7 +38,7 @@ task run(type:Exec, dependsOn: oneJar) {
     commandLine './go'
 }
 
-task dockerBuildImage(type:Exec, dependsOn: oneJar) {
+task dockerBuildImage(type:Exec, dependsOn: ["clean", "oneJar"]) {
     commandLine './dockerBuildImage.sh'
 }
 
