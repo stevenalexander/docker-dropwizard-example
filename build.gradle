@@ -34,6 +34,18 @@ task oneJar(type: OneJar) {
     mainClass = 'com.example.ExampleApplication'
 }
 
+task run(type:Exec, dependsOn: oneJar) {
+    commandLine './go'
+}
+
+task dockerBuildImage(type:Exec, dependsOn: oneJar) {
+    commandLine './dockerBuildImage.sh'
+}
+
+task dockerRunImage(type:Exec, dependsOn: dockerBuildImage) {
+    commandLine './dockerRunImage.sh'
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
 }
